@@ -253,10 +253,10 @@ function App() {
       }
     },
     {
-      name: "Aradhya Singh",
+      name: "Aaradhaya Singh",
       role: "Lead Developer & Founder",
       bio: "Creative designer with a keen eye for modern aesthetics and user experience. Specializes in creating beautiful, intuitive interfaces.",
-      image: { Aimg },
+      image:  Aimg ,
       skills: ["React.js", "Node.js", 'Express.js', "MongoDB", "JavaScript", "TypeScript", "HTML", "CSS", "Tailwind CSS", "Docker", "AWS"],
       social: {
         github: "https://github.com/aaradhayasingh811",
