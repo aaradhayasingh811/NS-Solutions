@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Globe, 
-  Palette, 
-  Code, 
-  Rocket, 
-  Users, 
-  Award, 
-  ArrowRight, 
-  Menu, 
-  X, 
-  Mail, 
-  Phone, 
+import {
+  Globe,
+  Palette,
+  Code,
+  Rocket,
+  Users,
+  Award,
+  ArrowRight,
+  Menu,
+  X,
+  Mail,
+  Phone,
   MapPin,
   Star,
   CheckCircle,
@@ -21,10 +21,72 @@ import {
   Linkedin,
   Twitter
 } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
+import emailjs from "emailjs-com";
+import Aimg from './assets/Aimg.png';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    projectType: '',
+    message: '',
+    time: new Date().toLocaleString(),
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (isSubmitting) return; // prevent spam clicks
+    setIsSubmitting(true);
+
+    // Validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.projectType || !formData.message) {
+      toast.error('Please fill in all fields');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!formData.phone.match(/^\d{10}$/)) {
+      toast.error('Phone number must be 10 digits');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!formData.email.includes('@')) {
+      toast.error('Invalid email');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // 1. Send to company
+      await emailjs.send('service_8opedtt', 'template_ua78rk8', formData, 'fXt8FiWprFIoC8RVa');
+      toast.success("Form Submitted! We will contact you soon");
+
+      // 2. Send to client
+      await emailjs.send('service_8opedtt', 'template_zsdjyrc', formData, 'fXt8FiWprFIoC8RVa');
+    } catch (err) {
+      console.error("Email failed", err);
+      toast.error('Something went wrong in form submission');
+    } finally {
+      setIsSubmitting(false);
+    }
+    console.log(formData);
+  }
+
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -36,7 +98,7 @@ function App() {
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
     { name: 'Process', href: '#process' },
-    { name: 'Portfolio', href: '#portfolio' },
+    { name: 'Work', href: '#portfolio' },
     { name: 'Team', href: '#team' },
     { name: 'Contact', href: '#contact' }
   ];
@@ -44,23 +106,41 @@ function App() {
   const services = [
     {
       icon: <Palette className="w-8 h-8" />,
-      title: "Custom Website Design",
-      description: "Beautiful, responsive websites tailored to your brand and vision with pixel-perfect attention to detail.",
-      features: ["Responsive Design", "Brand Integration", "SEO Optimized", "Fast Loading"],
+      title: "CRM/ERP Development",
+      description: "Customized software solutions that help businesses manage core operations like customer relationships, sales, inventory, accounting, human resources, and more — all from a single integrated platform.",
+      features: ["Custom Modules", "User Management", "Inventory Tracking", "Sales & Invoicing", "Real-time Reporting", "Role-based Access", "Cloud Integration", "Automated Workflows"],
       image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       icon: <Code className="w-8 h-8" />,
-      title: "MERN Stack Development",
-      description: "Full-stack web applications using MongoDB, Express.js, React, and Node.js for scalable solutions.",
-      features: ["Database Design", "API Development", "Real-time Features", "Cloud Deployment"],
+      title: "App Development",
+      description: "Modern, high-performance mobile apps designed for iOS and Android — built to engage users, enhance functionality, and elevate your digital presence.",
+      features: [
+        "Cross-Platform Support",
+        "Intuitive UI/UX",
+        "Push Notifications",
+        "API Integration",
+        "Offline Functionality",
+        "App Store Deployment",
+        "Performance Optimized",
+        "Secure & Scalable"
+      ],
       image: "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      title: "E-commerce Solutions",
-      description: "Complete online stores with payment integration, inventory management, and customer analytics.",
-      features: ["Payment Gateway", "Inventory System", "Analytics", "Mobile Optimized"],
+      title: "Website Development",
+      description: "Beautiful, responsive websites crafted to meet your unique business needs — from portfolios and online stores to booking systems and restaurant platforms.",
+      features: [
+        "Responsive Design",
+        "SEO Optimized",
+        "Payment Gateway Integration",
+        "Online Booking System",
+        "Menu & Ordering Features",
+        "Custom Admin Dashboard",
+        "Fast & Secure Hosting",
+        "Brand-Centric Design"
+      ],
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800"
     }
   ];
@@ -162,39 +242,36 @@ function App() {
 
   const teamMembers = [
     {
-      name: "Alex Rodriguez",
-      role: "Lead Developer & Co-Founder",
-      bio: "Full-stack developer with 8+ years of experience in MERN stack development. Passionate about creating scalable web applications.",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600",
-      skills: ["React", "Node.js", "MongoDB", "AWS"],
+      name: "Vansh Jaiswal",
+      role: "Lead Developer & Founder",
+      bio: "Full-stack developer with experience in MERN stack development. Passionate about creating scalable web applications.",
+      image: "https://media.licdn.com/dms/image/v2/D5603AQERhSdVvCLKfQ/profile-displayphoto-shrink_800_800/B56ZVQyORVGQAc-/0/1740817098951?e=1755129600&v=beta&t=OV6M7ZlD4n-4yYcyMTDEY5zvyGQQt_ZSr4IADXAHHos",
+      skills: ["React.js", "Node.js", 'Express.js', "MongoDB", "JavaScript", "TypeScript", "HTML", "CSS", "Tailwind CSS"],
       social: {
-        github: "#",
-        linkedin: "#",
-        twitter: "#"
+        github: "https://github.com/vanshjais1777",
+        linkedin: "https://www.linkedin.com/in/vansh-jaiswal-806271218",
       }
     },
     {
-      name: "Sarah Chen",
-      role: "UI/UX Designer & Co-Founder",
+      name: "Aradhya Singh",
+      role: "Lead Developer & Founder",
       bio: "Creative designer with a keen eye for modern aesthetics and user experience. Specializes in creating beautiful, intuitive interfaces.",
-      image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=600",
-      skills: ["Figma", "Adobe Creative Suite", "Prototyping", "User Research"],
+      image: { Aimg },
+      skills: ["React.js", "Node.js", 'Express.js', "MongoDB", "JavaScript", "TypeScript", "HTML", "CSS", "Tailwind CSS", "Docker", "AWS"],
       social: {
-        github: "#",
-        linkedin: "#",
-        twitter: "#"
+        github: "https://github.com/aaradhayasingh811",
+        linkedin: "https://www.linkedin.com/in/aaradhaya-singh-693434257/",
       }
     },
     {
-      name: "Michael Thompson",
-      role: "Backend Specialist & Co-Founder",
+      name: "Satyam Pandey",
+      role: "App Developer & Co-Founder",
       bio: "Backend architecture expert with deep knowledge in database design, API development, and cloud infrastructure.",
-      image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600",
-      skills: ["Express.js", "PostgreSQL", "Docker", "Microservices"],
+      image: "https://media.licdn.com/dms/image/v2/D5603AQHDElcsYqs1jw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1708361992832?e=1755129600&v=beta&t=_sliTemMto2vwYo3-KGUhF87MoZS42L1c0RhBbEjEM4",
+      skills: ["Dart", "Flutter", "Firebase"],
       social: {
-        github: "#",
-        linkedin: "#",
-        twitter: "#"
+        github: "https://github.com/123456789satyam",
+        linkedin: "https://www.linkedin.com/in/satyam-pandey7/",
       }
     }
   ];
@@ -225,10 +302,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Toaster />
       {/* Navigation */}
-      <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        scrollY > 50 ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-      }`}>
+      <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
@@ -300,28 +377,32 @@ function App() {
             <div className="text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
                 Beautiful Websites
-                <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Built for Success
+                <span className="block text-3xl md:text-4xl lg:text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Aapke Business Ko Online Le Jaane Wale
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Transform your vision into stunning digital experiences. We create custom websites and MERN stack applications that captivate your audience and drive results.
+                Transform your vision into stunning digital experiences. We create custom <b>Websites</b> and <b>Applications</b> that captivate your audience and drive results.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
-                  <span>Start Your Project</span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-                <button className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300">
-                  View Our Work
-                </button>
+                <a href="#contact">
+                  <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
+                    <span>Start Your Project</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </a>
+                <a href="#portfolio">
+                  <button className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300">
+                    View Our Work
+                  </button>
+                </a>
               </div>
             </div>
-            
+
             <div className="relative">
               <div className="relative z-10">
-                <img 
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                <img
+                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Team working on web development"
                   className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
                 />
@@ -333,7 +414,7 @@ function App() {
           {/* Stats */}
           <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div className="p-6">
-              <div className="text-4xl font-bold text-blue-600 mb-2">150+</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">10+</div>
               <div className="text-gray-600">Projects Completed</div>
             </div>
             <div className="p-6">
@@ -345,7 +426,7 @@ function App() {
               <div className="text-gray-600">Support Available</div>
             </div>
             <div className="p-6">
-              <div className="text-4xl font-bold text-purple-600 mb-2">5+</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">3+</div>
               <div className="text-gray-600">Years Experience</div>
             </div>
           </div>
@@ -371,8 +452,8 @@ function App() {
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
               >
                 <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={service.image} 
+                  <img
+                    src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                   />
@@ -447,8 +528,8 @@ function App() {
               <div key={index} className="relative">
                 <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full">
                   <div className="relative h-48">
-                    <img 
-                      src={step.image} 
+                    <img
+                      src={step.image}
                       alt={step.title}
                       className="w-full h-full object-cover"
                     />
@@ -490,8 +571,8 @@ function App() {
                 className="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
                 <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={item.image} 
+                  <img
+                    src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
@@ -545,8 +626,8 @@ function App() {
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className="relative">
-                  <img 
-                    src={member.image} 
+                  <img
+                    src={member.image}
                     alt={member.name}
                     className="w-full h-80 object-cover"
                   />
@@ -556,15 +637,15 @@ function App() {
                     <p className="text-blue-200 font-medium">{member.role}</p>
                   </div>
                 </div>
-                
+
                 <div className="p-6">
                   <p className="text-gray-600 mb-6 leading-relaxed">{member.bio}</p>
-                  
+
                   <div className="mb-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-3">Skills</h4>
                     <div className="flex flex-wrap gap-2">
                       {member.skills.map((skill, skillIndex) => (
-                        <span 
+                        <span
                           key={skillIndex}
                           className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-medium"
                         >
@@ -573,22 +654,28 @@ function App() {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="flex space-x-4">
-                    <a 
+                    <a
                       href={member.social.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all duration-200"
                     >
                       <Github className="w-5 h-5" />
                     </a>
-                    <a 
+                    <a
                       href={member.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-200"
                     >
                       <Linkedin className="w-5 h-5" />
                     </a>
-                    <a 
+                    <a
                       href={member.social.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-400 hover:text-white transition-all duration-200"
                     >
                       <Twitter className="w-5 h-5" />
@@ -626,8 +713,8 @@ function App() {
                 </div>
                 <p className="text-gray-700 mb-6 leading-relaxed italic">"{testimonial.content}"</p>
                 <div className="flex items-center">
-                  <img 
-                    src={testimonial.image} 
+                  <img
+                    src={testimonial.image}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
@@ -658,36 +745,60 @@ function App() {
             {/* Contact Form */}
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
                     <input
+                      name='firstName'
                       type="text"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="John"
+                      value={formData.firstName}
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
                     <input
+                      name='lastName'
                       type="text"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="Doe"
+                      value={formData.lastName}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                   <input
+                    name='email'
                     type="email"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone No.</label>
+                  <input
+                    name='phone'
+                    type="number"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    placeholder="Enter your mobile No."
+                    value={formData.phone}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Project Type</label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                  <select
+                    name='projectType'
+                    value={formData.projectType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
                     <option>Select a service</option>
                     <option>Custom Website Design</option>
                     <option>MERN Stack Development</option>
@@ -698,6 +809,9 @@ function App() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
                   <textarea
+                    name='message'
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="Tell us about your project..."
@@ -723,7 +837,7 @@ function App() {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Email</div>
-                      <div className="text-gray-600">hello@webbooth.com</div>
+                      <div className="text-gray-600">vansh@webbooth.com, aradhya@webbooth.com</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -732,7 +846,7 @@ function App() {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Phone</div>
-                      <div className="text-gray-600">+1 (555) 123-4567</div>
+                      <div className="text-gray-600">+91 6386169658, +91 8934081196</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -741,7 +855,7 @@ function App() {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Office</div>
-                      <div className="text-gray-600">123 Tech Street, Digital City, DC 12345</div>
+                      <div className="text-gray-600">273001, Gorakhpur, Uttar Pradesh</div>
                     </div>
                   </div>
                 </div>
@@ -787,7 +901,7 @@ function App() {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
@@ -797,7 +911,7 @@ function App() {
                 <li><a href="#" className="hover:text-white transition-colors duration-200">Consulting</a></li>
               </ul>
             </div>
-            
+
             <div>
               <h4 className="text-lg font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
@@ -808,9 +922,9 @@ function App() {
               </ul>
             </div>
           </div>
-          
+
           <hr className="border-gray-800 my-8" />
-          
+
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
               © 2025 WebBooth. All rights reserved.
