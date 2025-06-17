@@ -23,7 +23,8 @@ import {
 } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 import emailjs from "emailjs-com";
-import Aimg from './assets/Aimg.png';
+import Aimg from './assets/profile.jpeg';
+import logo from "./assets/logo.png"
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,11 +74,20 @@ function App() {
 
     try {
       // 1. Send to company
-      await emailjs.send('service_8opedtt', 'template_ua78rk8', formData, 'fXt8FiWprFIoC8RVa');
+      await emailjs.send('service_br1jrn9', 'template_fayv9cr', formData, 'SUh5hHv1kwCr931gi');
       toast.success("Form Submitted! We will contact you soon");
+      setFormData({
+        firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    projectType: '',
+    message: '',
+    time: new Date().toLocaleString(),
 
+      });
       // 2. Send to client
-      await emailjs.send('service_8opedtt', 'template_zsdjyrc', formData, 'fXt8FiWprFIoC8RVa');
+      await emailjs.send('service_br1jrn9', 'template_mszy2pw', formData, 'SUh5hHv1kwCr931gi');
     } catch (err) {
       console.error("Email failed", err);
       toast.error('Something went wrong in form submission');
@@ -104,14 +114,25 @@ function App() {
   ];
 
   const services = [
+    
+   
     {
-      icon: <Palette className="w-8 h-8" />,
-      title: "CRM/ERP Development",
-      description: "Customized software solutions that help businesses manage core operations like customer relationships, sales, inventory, accounting, human resources, and more — all from a single integrated platform.",
-      features: ["Custom Modules", "User Management", "Inventory Tracking", "Sales & Invoicing", "Real-time Reporting", "Role-based Access", "Cloud Integration", "Automated Workflows"],
-      image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800"
+      icon: <Globe className="w-8 h-8" />,
+      title: "Website Development",
+      description: "Beautiful, responsive websites crafted to meet your unique business needs — from portfolios and online stores to booking systems and restaurant platforms.",
+      features: [
+        "Responsive Design",
+        "SEO Optimized",
+        "Payment Gateway Integration",
+        "Online Booking System",
+        "Menu & Ordering Features",
+        "Custom Admin Dashboard",
+        "Fast & Secure Hosting",
+        "Brand-Centric Design"
+      ],
+      image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
-    {
+     {
       icon: <Code className="w-8 h-8" />,
       title: "App Development",
       description: "Modern, high-performance mobile apps designed for iOS and Android — built to engage users, enhance functionality, and elevate your digital presence.",
@@ -128,21 +149,12 @@ function App() {
       image: "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Website Development",
-      description: "Beautiful, responsive websites crafted to meet your unique business needs — from portfolios and online stores to booking systems and restaurant platforms.",
-      features: [
-        "Responsive Design",
-        "SEO Optimized",
-        "Payment Gateway Integration",
-        "Online Booking System",
-        "Menu & Ordering Features",
-        "Custom Admin Dashboard",
-        "Fast & Secure Hosting",
-        "Brand-Centric Design"
-      ],
-      image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800"
-    }
+      icon: <Palette className="w-8 h-8" />,
+      title: "CRM/ERP Development",
+      description: "Customized software solutions that help businesses manage core operations like customer relationships, sales, inventory, accounting, human resources, and more — all from a single integrated platform.",
+      features: ["Custom Modules", "User Management", "Inventory Tracking", "Sales & Invoicing", "Real-time Reporting", "Role-based Access", "Cloud Integration", "Automated Workflows"],
+      image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
   ];
 
   const features = [
@@ -210,13 +222,13 @@ function App() {
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800",
       tags: ["E-commerce", "Payment Gateway", "Mobile"]
     },
-    {
-      title: "Creative Agency Site",
-      category: "Web Design",
-      description: "Beautiful portfolio website showcasing creative work with smooth animations.",
-      image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["Design", "Animation", "Portfolio"]
-    },
+    // {
+    //   title: "Creative Agency Site",
+    //   category: "Web Design",
+    //   description: "Beautiful portfolio website showcasing creative work with smooth animations.",
+    //   image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800",
+    //   tags: ["Design", "Animation", "Portfolio"]
+    // },
     {
       title: "Restaurant App",
       category: "Mobile App",
@@ -224,20 +236,20 @@ function App() {
       image: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=800",
       tags: ["React Native", "Real-time", "Payments"]
     },
-    {
-      title: "Healthcare Dashboard",
-      category: "Dashboard",
-      description: "Comprehensive healthcare management system with patient tracking and analytics.",
-      image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["Dashboard", "Analytics", "Healthcare"]
-    },
-    {
-      title: "Learning Platform",
-      category: "Education",
-      description: "Interactive online learning platform with video streaming and progress tracking.",
-      image: "https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["Education", "Video", "Progress Tracking"]
-    }
+    // {
+    //   title: "Healthcare Dashboard",
+    //   category: "Dashboard",
+    //   description: "Comprehensive healthcare management system with patient tracking and analytics.",
+    //   image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=800",
+    //   tags: ["Dashboard", "Analytics", "Healthcare"]
+    // },
+    // {
+    //   title: "Learning Platform",
+    //   category: "Education",
+    //   description: "Interactive online learning platform with video streaming and progress tracking.",
+    //   image: "https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800",
+    //   tags: ["Education", "Video", "Progress Tracking"]
+    // }
   ];
 
   const teamMembers = [
@@ -255,9 +267,30 @@ function App() {
     {
       name: "Aaradhaya Singh",
       role: "Lead Developer & Founder",
-      bio: "Creative designer with a keen eye for modern aesthetics and user experience. Specializes in creating beautiful, intuitive interfaces.",
+      bio: "Versatile software developer with a passion for crafting efficient, scalable systems. Blends clean code with user-focused design to build impactful web and mobile applications.",
       image:  Aimg ,
-      skills: ["React.js", "Node.js", 'Express.js', "MongoDB", "JavaScript", "TypeScript", "HTML", "CSS", "Tailwind CSS", "Docker", "AWS"],
+      skills: [
+  "React.js",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "JavaScript",
+  "Tailwind CSS",
+  "Redux",
+  "GSAP",
+  "MySQL",
+  "RESTful APIs",
+  "React Query",
+  "API Integration",
+  "Docker",
+  "Linux",
+  "Git/Github",
+  "AWS",
+  "Shell Scripting",
+  "C/C++",
+  "MongoDB Pipelining"
+]
+,
       social: {
         github: "https://github.com/aaradhayasingh811",
         linkedin: "https://www.linkedin.com/in/aaradhaya-singh-693434257/",
@@ -278,39 +311,40 @@ function App() {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "CEO, TechStart",
-      content: "WebBooth transformed our vision into a stunning website that perfectly represents our brand. The team's attention to detail is exceptional.",
-      rating: 5,
-      image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=150"
-    },
-    {
-      name: "Michael Chen",
-      role: "Founder, GrowthLab",
-      content: "The MERN stack application they built for us exceeded our expectations. Professional, fast, and exactly what we needed.",
-      rating: 5,
-      image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150"
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Marketing Director, InnovateCorp",
-      content: "Outstanding service from start to finish. They delivered on time and the final product was beyond our expectations.",
-      rating: 5,
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150"
-    }
+  name: "Sarah Johnson",
+  role: "CEO, TechStart",
+  content: "Working with NS Solutions was an amazing experience. They turned our rough idea into a clean, modern website that truly captures our brand. Their attention to detail and responsiveness stood out.",
+  rating: 5,
+  image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=150"
+},
+{
+  name: "Michael Chen",
+  role: "Founder, GrowthLab",
+  content: "The MERN stack web app they delivered was spot on. Smooth performance, clean UI, and delivered well within our timeline. Definitely a go-to team for serious development work.",
+  rating: 5,
+  image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150"
+},
+{
+  name: "Emily Rodriguez",
+  role: "Marketing Director, InnovateCorp",
+  content: "From kickoff to delivery, the process was seamless. The final product not only looked great but functioned exactly as we needed. Super reliable and professional team.",
+  rating: 5,
+  image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150"
+}
+
   ];
 
   return (
     <div className="min-h-screen bg-white">
       <Toaster />
       {/* Navigation */}
-      <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      <nav className={`fixed w-full  top-0 z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Globe className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+                <img src={logo} alt="" className=' w-20' />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Nayi Soch Solutions
@@ -370,7 +404,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-20 pb-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+      <section id="home" className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -412,23 +446,23 @@ function App() {
           </div>
 
           {/* Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
             <div className="p-6">
-              <div className="text-4xl font-bold text-blue-600 mb-2">10+</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">3+</div>
               <div className="text-gray-600">Projects Completed</div>
             </div>
             <div className="p-6">
-              <div className="text-4xl font-bold text-purple-600 mb-2">98%</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">99%</div>
               <div className="text-gray-600">Client Satisfaction</div>
             </div>
             <div className="p-6">
               <div className="text-4xl font-bold text-blue-600 mb-2">24/7</div>
               <div className="text-gray-600">Support Available</div>
             </div>
-            <div className="p-6">
+            {/* <div className="p-6">
               <div className="text-4xl font-bold text-purple-600 mb-2">3+</div>
               <div className="text-gray-600">Years Experience</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -487,7 +521,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Why Choose WebBooth?
+              Why Choose NS Solutions?
             </h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
               We combine technical expertise with creative vision to deliver exceptional results.
@@ -599,11 +633,11 @@ function App() {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          {/* <div className="text-center mt-12">
             <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
               View All Projects
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -615,7 +649,7 @@ function App() {
               Meet Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Team</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The passionate professionals behind WebBooth who bring your digital dreams to life.
+              The passionate professionals behind NS Solutions who bring your digital dreams to life.
             </p>
           </div>
 
@@ -672,14 +706,14 @@ function App() {
                     >
                       <Linkedin className="w-5 h-5" />
                     </a>
-                    <a
+                    {/* <a
                       href={member.social.twitter}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-400 hover:text-white transition-all duration-200"
                     >
                       <Twitter className="w-5 h-5" />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
@@ -837,7 +871,7 @@ function App() {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Email</div>
-                      <div className="text-gray-600">vansh@webbooth.com, aradhya@webbooth.com</div>
+                      <div className="text-gray-600">nssolutions95@gmail.com</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -855,7 +889,7 @@ function App() {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Office</div>
-                      <div className="text-gray-600">273001, Gorakhpur, Uttar Pradesh</div>
+                      <div className="text-gray-600"> Gorakhpur, Uttar Pradesh</div>
                     </div>
                   </div>
                 </div>
@@ -866,9 +900,9 @@ function App() {
                 <p className="mb-6 text-blue-100">
                   Schedule a free consultation to discuss your project requirements and get a custom quote.
                 </p>
-                <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                <p className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 w-max">
                   Schedule Consultation
-                </button>
+                </p>
               </div>
             </div>
           </div>
@@ -884,20 +918,22 @@ function App() {
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
                   <Globe className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-2xl font-bold">WebBooth</span>
+                <span className="text-2xl font-bold">NS Solutions</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 Creating beautiful, functional websites and applications that help businesses grow and succeed in the digital world.
               </p>
               <div className="flex space-x-4">
+                
                 <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
-                  <Globe className="w-5 h-5" />
+                  <a href="mailto:nssolutions95@gmail.com">
+                    <Mail className="w-5 h-5" />
+                  </a>
                 </div>
                 <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
-                  <Phone className="w-5 h-5" />
+                  <a href="tel:+91 8934081196">
+                    <Phone className="w-5 h-5" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -927,7 +963,7 @@ function App() {
 
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2025 WebBooth. All rights reserved.
+              © 2025 NS Solutions. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">Privacy Policy</a>

@@ -1,8 +1,8 @@
-# WebBooth
+# NS Solutions
 
 **Beautiful Websites & MERN Development**
 
-WebBooth is a professional web development agency template built with [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), and [Tailwind CSS](https://tailwindcss.com/). It features a modern, responsive landing page for agencies or freelancers specializing in custom websites and MERN stack applications.
+NS Solutions is a professional web development agency template built with [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), and [Tailwind CSS](https://tailwindcss.com/). It features a modern, responsive landing page for agencies or freelancers specializing in custom websites and MERN stack applications.
 
 ## Features
 
