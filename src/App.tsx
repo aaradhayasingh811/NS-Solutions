@@ -20,11 +20,14 @@ import {
   Github,
   Linkedin,
   Twitter
+  
 } from 'lucide-react';
+import { BarChart2 } from "lucide-react";
 import toast, { Toaster } from 'react-hot-toast';
 import emailjs from "emailjs-com";
 import Aimg from './assets/profile.jpeg';
 import logo from "./assets/logo.png"
+import Ankush from "./assets/Ankush.jpg"
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -155,6 +158,22 @@ function App() {
       features: ["Custom Modules", "User Management", "Inventory Tracking", "Sales & Invoicing", "Real-time Reporting", "Role-based Access", "Cloud Integration", "Automated Workflows"],
       image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
+    {
+  icon: <BarChart2 className="w-8 h-8" />,
+  title: "Data Analytics & Power BI",
+  description: "Turn complex data into clear insights with our data analytics services. We help you make data-driven decisions using visualization tools like Power BI, Tableau, and Python-based dashboards.",
+  features: [
+    "Interactive Power BI Dashboards",
+    "Data Cleaning & Preparation",
+    "Trend & Forecast Analysis",
+    "Real-time Reporting",
+    "Custom Visualizations",
+    "KPI & Metric Tracking",
+    "Data-Driven Decision Support",
+    "Integration with Excel/SQL Sources"
+  ],
+  image: "https://images.pexels.com/photos/669622/pexels-photo-669622.jpeg?auto=compress&cs=tinysrgb&w=800"
+}
   ];
 
   const features = [
@@ -305,6 +324,33 @@ function App() {
       social: {
         github: "https://github.com/123456789satyam",
         linkedin: "https://www.linkedin.com/in/satyam-pandey7/",
+      }
+    },
+    {
+      name: "Ankush Yadav",
+      role: "Data Analyst & Co-Founder",
+      bio: "Detail-oriented data analyst with a passion for uncovering insights through data. Skilled in transforming raw data into actionable intelligence using statistical analysis, data visualization, and modern analytical tools.",
+      image:  Ankush ,
+      skills: [
+  "SQL",
+  "Excel",
+  "Python",
+  "Pandas",
+  "NumPy",
+  "Matplotlib",
+  "Seaborn",
+  "Power BI",
+  "Tableau",
+  "Data Cleaning",
+  "Data Visualization",
+  "Statistics",
+  "Jupyter Notebook"
+]
+
+,
+      social: {
+        github: "https://github.com/yadavankush2404",
+        linkedin: "https://www.linkedin.com/in/ankush-yadav-293714277/",
       }
     }
   ];
@@ -479,40 +525,46 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white">
-                      {service.icon}
-                    </div>
-                  </div>
-                </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center space-x-2 text-gray-700">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 sm:px-6">
+  {services.map((service, index) => (
+    <div
+      key={index}
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 flex flex-col"
+    >
+      <div className="relative h-40 overflow-hidden flex-shrink-0">
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+        <div className="absolute bottom-3 left-3">
+          <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center text-white">
+            {service.icon}
           </div>
+        </div>
+      </div>
+
+      <div className="p-5 flex-grow">
+        <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+        <p className="text-gray-600 mb-4 text-sm leading-relaxed">{service.description}</p>
+        
+        <ul className="space-y-2">
+          {service.features.map((feature, featureIndex) => (
+            <li 
+              key={featureIndex} 
+              className="flex items-start space-x-2 text-gray-700 text-sm"
+            >
+              <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ))}
+</div>
         </div>
       </section>
 
@@ -653,72 +705,70 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 sm:px-6">
+  {teamMembers.map((member, index) => (
+    <div
+      key={index}
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col"
+    >
+      <div className="relative flex-shrink-0">
+        <img
+          src={member.image}
+          alt={member.name}
+          className="w-full h-64 object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="absolute bottom-4 left-4 right-4">
+          <h3 className="text-xl font-bold text-white">{member.name}</h3>
+          <p className="text-blue-100 font-medium text-sm">{member.role}</p>
+        </div>
+      </div>
+
+      <div className="p-5 flex-grow">
+        <p className="text-gray-600 mb-4 text-sm leading-relaxed">{member.bio}</p>
+
+        <div className="mb-4">
+          <h4 className="text-xs font-semibold text-gray-900 uppercase tracking-wider mb-2">Skills</h4>
+          <div className="flex flex-wrap gap-2">
+            {member.skills.map((skill, skillIndex) => (
+              <span
+                key={skillIndex}
+                className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium"
               >
-                <div className="relative">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-80 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-2xl font-bold text-white mb-1">{member.name}</h3>
-                    <p className="text-blue-200 font-medium">{member.role}</p>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <p className="text-gray-600 mb-6 leading-relaxed">{member.bio}</p>
-
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Skills</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {member.skills.map((skill, skillIndex) => (
-                        <span
-                          key={skillIndex}
-                          className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-medium"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-4">
-                    <a
-                      href={member.social.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-900 hover:text-white transition-all duration-200"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                    <a
-                      href={member.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-200"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                    {/* <a
-                      href={member.social.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-400 hover:text-white transition-all duration-200"
-                    >
-                      <Twitter className="w-5 h-5" />
-                    </a> */}
-                  </div>
-                </div>
-              </div>
+                {skill}
+              </span>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="px-5 pb-5 flex space-x-3">
+        {member.social.github && (
+          <a
+            href={member.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-900 hover:text-white transition-colors duration-200"
+            aria-label={`${member.name}'s GitHub`}
+          >
+            <Github className="w-4 h-4" />
+          </a>
+        )}
+        {member.social.linkedin && (
+          <a
+            href={member.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors duration-200"
+            aria-label={`${member.name}'s LinkedIn`}
+          >
+            <Linkedin className="w-4 h-4" />
+          </a>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
         </div>
       </section>
 
