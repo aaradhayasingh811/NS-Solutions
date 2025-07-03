@@ -319,7 +319,7 @@ function App() {
       name: "Satyam Pandey",
       role: "App Developer & Co-Founder",
       bio: "Backend architecture expert with deep knowledge in database design, API development, and cloud infrastructure.",
-      image: "https://media.licdn.com/dms/image/v2/D5603AQHDElcsYqs1jw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1708361992832?e=1755129600&v=beta&t=_sliTemMto2vwYo3-KGUhF87MoZS42L1c0RhBbEjEM4",
+      image: "https://media.licdn.com/dms/image/v2/D5603AQEFG2XYwtKvFA/profile-displayphoto-scale_400_400/B56ZetQg.dG0Ak-/0/1750958483256?e=1756944000&v=beta&t=ahbo7iSKSJLLPs8RgGpo8HATM4C56dhLCSHdbsQ8SSs",
       skills: ["Dart", "Flutter", "Firebase"],
       social: {
         github: "https://github.com/123456789satyam",
